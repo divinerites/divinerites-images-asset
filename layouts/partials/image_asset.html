@@ -1,0 +1,59 @@
+<!--
+   Gestion de l'affichage des images (asset)
+-->
+{{- $size := .size -}}
+{{- $path := .path -}}
+{{- $action := .action | default "Fill" -}}
+{{- $filter := .filter | default "" -}}
+<!-- En cas de portfolio -->
+{{- $portfolio := .pf | default false -}}
+{{- $portfolio_size := .pf_size | default "800x" -}}
+{{- $highres := .highres | default false -}}
+<!-- Misc -->
+{{- $title := .title | default "Image" -}} <!-- "false" pour aucun titre -->
+{{- $lazylocal := .lazy | default true -}}
+
+<!-- récupère l'image -->
+{{- $img_original := resources.Get $path  -}}
+{{- $img_small  := $img_original -}}
+<!-- Used by portfolio -->
+{{- $img_detail := ""}}
+{{ if $portfolio }}
+   {{- $img_detail = $img_original.Resize $portfolio_size -}}
+   {{- with $filter -}}
+      {{- $img_detail = $img_detail.Filter . -}}
+   {{ end }}
+{{ end }}
+
+<!-- actions et tailles images -->
+{{- if eq $action "Fill" -}}
+   {{- $img_small  = $img_original.Fill $size -}}
+{{- else if (eq $action "Fit") -}}
+   {{- $img_small = $img_original.Fit $size -}}
+{{- else if (eq $action "Resize") -}}
+   {{- $img_small = $img_original.Resize $size -}}
+{{- end -}}
+<!-- Manage filters -->
+{{- with $filter -}}
+   {{- $img_small  = $img_small.Filter . -}}
+{{ end }}
+
+<!-- gestion lazyload -->
+{{- $lazy := "" -}}
+{{- if and site.Params.global.lazyload.enable $lazylocal -}}
+   {{- $lazy = site.Params.global.lazyload.label -}}
+{{- end -}}
+
+<!-- Affiche l'image -->
+<img
+{{- if and site.Params.global.lazyload.enable $lazylocal }}
+   src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+   data-src="{{- $img_small.RelPermalink -}}"
+{{- else }}
+   src="{{- $img_small.RelPermalink -}}"
+{{- end }}
+   class="img-fluid shadow rounded {{ $lazy -}}"
+   alt="{{- $title -}}"
+   title="{{- $title -}}"
+   width="{{- $img_small.Width -}}" height="{{- $img_small.Height -}}"
+>

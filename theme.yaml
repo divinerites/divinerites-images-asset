@@ -1,0 +1,21 @@
+# theme.yaml configuration file
+
+name: divinerites-images-asset
+license: GPLv3
+licenselink: https://www.gnu.org/licenses/gpl-3.0.html
+description: Small gohugo.io component for managing images as asset. Use lazyloading
+homepage: https://github.com/divinerites/divinerites-images-asset.git
+version: 1.0.0
+tags:
+  - component
+  - assets
+  - images
+  - lazyloading
+features:
+  - easy manage asset images
+  - easy lazyload images
+  - 24/07/2020 = corrige le bug gestion des filtres
+  - 27/07/2020 = Ajoute option pour désactive lazy pour une image donnée
+min_version: 0.70.0
+author:
+  name: Didier Divinerites
