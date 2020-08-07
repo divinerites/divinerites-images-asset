@@ -45,13 +45,15 @@
 {{- end -}}
 
 <!-- Affiche l'image -->
+<!-- src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" -->
 <img
-{{- if and site.Params.global.lazyload.enable $lazylocal }}
-   src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-   data-src="{{- $img_small.RelPermalink -}}"
-{{- else }}
-   src="{{- $img_small.RelPermalink -}}"
-{{- end }}
+   {{- if and site.Params.global.lazyload.enable $lazylocal }}
+      {{- $placeholder := $img_original.Resize "3x q20" }}
+      src="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
+      data-src="{{- $img_small.RelPermalink -}}"
+   {{- else }}
+      src="{{- $img_small.RelPermalink -}}"
+   {{- end }}
    class="img-fluid shadow rounded {{ $lazy -}}"
    alt="{{- $title -}}"
    title="{{- $title -}}"
