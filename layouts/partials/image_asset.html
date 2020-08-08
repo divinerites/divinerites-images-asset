@@ -1,19 +1,18 @@
 <!--
-   Gestion de l'affichage des images (asset)
--->
+   Manage images as assets -->
 {{- $size := .size -}}
 {{- $path := .path -}}
 {{- $action := .action | default "Fill" -}}
 {{- $filter := .filter | default "" -}}
-<!-- En cas de portfolio -->
+<!-- If using portfolio TODO : REMOVE OUTSIDE THIS PARTIAL -->
 {{- $portfolio := .pf | default false -}}
 {{- $portfolio_size := .pf_size | default "800x" -}}
 {{- $highres := .highres | default false -}}
 <!-- Misc -->
-{{- $title := .title | default "Image" -}} <!-- "false" pour aucun titre -->
+{{- $title := .title | default "Image" -}} <!-- "false" if no title -->
 {{- $lazylocal := .lazy | default true -}}
 
-<!-- récupère l'image -->
+<!-- Get the image -->
 {{- $img_original := resources.Get $path  -}}
 {{- $img_small  := $img_original -}}
 <!-- Used by portfolio -->
@@ -25,7 +24,7 @@
    {{ end }}
 {{ end }}
 
-<!-- actions et tailles images -->
+<!-- actions & image size  -->
 {{- if eq $action "Fill" -}}
    {{- $img_small  = $img_original.Fill $size -}}
 {{- else if (eq $action "Fit") -}}
@@ -38,14 +37,16 @@
    {{- $img_small  = $img_small.Filter . -}}
 {{ end }}
 
-<!-- gestion lazyload -->
+<!-- manage lazyload -->
 {{- $lazy := "" -}}
 {{- if and site.Params.global.lazyload.enable $lazylocal -}}
    {{- $lazy = site.Params.global.lazyload.label -}}
 {{- end -}}
 
-<!-- Affiche l'image -->
-<!-- src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" -->
+<!-- Show the image -->
+<!--
+   Grey placeholder : src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+   Now image placeholder from original image -->
 <img
    {{- if and site.Params.global.lazyload.enable $lazylocal }}
       {{- $placeholder := $img_original.Resize "3x q20" }}
