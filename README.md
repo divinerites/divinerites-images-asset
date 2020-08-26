@@ -3,9 +3,10 @@
 ## Usage
 
 ```go-html-template
-{{ $dict := (dict "context" . "path" .image "size" "200x" "action" "Resize" "title" .name )}}
-{{ partial "image_asset.html" $dict }}
-```
+{{ $dict := (dict "context" . "path" .image "size" "200x" "action" "Resize" "title" .name "style" "mes styles")}}
+{{ partial "image_asset.html" $dict }}```
+
+Default style : "img-fluid shadow rounded"
 
 ## Need to use a porfolio or any image's url
 

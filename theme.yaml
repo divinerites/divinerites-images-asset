@@ -5,7 +5,7 @@ license: GPLv3
 licenselink: https://www.gnu.org/licenses/gpl-3.0.html
 description: Small gohugo.io component for managing images as asset. Use lazyloading
 homepage: https://github.com/divinerites/divinerites-images-asset.git
-version: 1.0.1
+version: 1.1.0
 tags:
   - component
   - assets
@@ -15,7 +15,8 @@ features:
   - Easy manage asset images
   - Easy lazyload images
   - Option to inhibate lazyload for one image
-  - Placeholder from image - v1.0.1
+  - Placeholder from image (v1.0.1)
+  - Add "style" option (v1.1.0)
 min_version: 0.70.0
 author:
   name: Didier Divinerites
