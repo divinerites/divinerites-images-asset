@@ -8,6 +8,8 @@
 
 Default style : "img-fluid shadow rounded"
 
+You can disble it with adding `"basicstyle" false` to the dict
+
 ## Need to use a porfolio or any image's url
 
 ```go-html-template
