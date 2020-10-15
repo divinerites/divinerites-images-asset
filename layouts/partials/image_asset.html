@@ -56,16 +56,15 @@
 <!--
    Grey placeholder : src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
    Now image placeholder from original image -->
-<img
-   {{- if and site.Params.global.lazyload.enable $lazylocal }}
-      {{- $placeholder := $img_original.Resize "3x q20" }}
-      src="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
-      data-src="{{- $img_small.RelPermalink -}}"
-   {{- else }}
-      src="{{- $img_small.RelPermalink -}}"
-   {{- end }}
-   class="{{ $bs }} {{ $lazy }} {{ $class }}"
-   alt="{{- $title -}}"
-   title="{{- $title -}}"
-   width="{{- $img_small.Width -}}" height="{{- $img_small.Height -}}"
->
+{{ $phquality := "3x q15" }}
+<img {{- if and site.Params.global.lazyload.enable $lazylocal }}
+{{- $placeholder := $img_original.Resize $phquality }}
+src="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
+data-src="{{- $img_small.RelPermalink -}}"
+{{- else }}
+src="{{- $img_small.Permalink -}}"
+{{- end }}
+class="{{ $bs }} {{ $lazy }} {{ $class }}"
+alt="{{- $title -}}"
+title="{{- $title -}}"
+width="{{- $img_small.Width -}}" height="{{- $img_small.Height -}}">
